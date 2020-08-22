@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public Transform transform;
     public GameObject target;
+    public GameObject ball;
 	public Transform spawnTop;
 	public Transform spawnBottom;
     
@@ -17,7 +18,11 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
-            Respown(spawnBottom);
+			if (ball.activeSelf) {
+            	Respown(spawnBottom);
+			} else {
+				Destroy(target);
+			}
         }
     }
 

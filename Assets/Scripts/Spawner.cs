@@ -5,7 +5,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public Transform transform;
-    public GameObject Enemy;
+    public GameObject enemy;
+    public GameObject ball;
     
     void Start()
     {
@@ -14,13 +15,15 @@ public class Spawner : MonoBehaviour
 
     void Repeat()
     {
-        StartCoroutine(SpawnCountDown());
+        if (ball.activeSelf) {
+            StartCoroutine(SpawnCountDown());
+        }
     }
 
     IEnumerator SpawnCountDown()
     {
         yield return new WaitForSeconds(3f);
-        Instantiate(Enemy, transform.position, Quaternion.identity);
+        Instantiate(enemy, transform.position, Quaternion.identity);
         Repeat();
     }
 }
