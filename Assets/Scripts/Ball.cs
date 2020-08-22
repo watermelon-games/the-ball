@@ -54,6 +54,13 @@ public class Ball : MonoBehaviour
         check = !check;
     }
 
+    void SwitchPosition()
+    {
+        PointTop.SetActive(false);
+        PointTop.transform.position = new Vector3(PointTop.transform.position.x, -1.3f, 0.0915f);
+        PointTop.SetActive(true);
+    }
+
     void Crash()
     {
         Target.SetActive(false);

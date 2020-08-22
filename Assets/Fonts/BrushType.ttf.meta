@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e96ba594010fa74187155faee49dd35
+guid: 250ed3168db2e4c44b7ddca57436b49c
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Euclid Square
+  fontName: BrushType
   fontNames:
-  - Euclid Square
+  - BrushType
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
