@@ -1,41 +1,50 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform transform;
     public GameObject target;
     public GameObject ball;
 	public Transform spawnTop;
 	public Transform spawnBottom;
+
+	private Transform _transform;
     
-    void Start()
+	private void Start()
     {
+		_transform = GetComponent<Transform>();
     }
 
-	void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.CompareTag("Wall"))
         {
+	        var randomSpawn = Random.Range(1, 2);
+	        
+	        Debug.Log(randomSpawn);
+	        
 			if (ball.activeSelf) {
-            	Respown(spawnTop);
+				if (randomSpawn == 1)
+				{
+					Respawn(spawnTop);
+				}
+				else
+				{
+					Respawn(spawnBottom);
+				}
 			} else {
 				Destroy(target);
 			}
         }
     }
 
-    void Update()
+    private void Update()
     {
-        transform.rotation *= Quaternion.Euler(0f, 0f, 0.2f);
-        transform.position += new Vector3(1, 0, 0) * Time.deltaTime * 1;
+        _transform.rotation *= Quaternion.Euler(0f, 0f, 0.3f);
+        _transform.position += new Vector3(1, 0, 0) * (Time.deltaTime * 1);
     }
 
-	void Respown(Transform spawn)
+    private void Respawn(Transform spawn)
     {
-		Debug.Log(spawn.position);
-
-        transform.position = new Vector3(1, spawn.position.x, spawn.position.y) * Time.deltaTime * 1;
+        _transform.position = spawn.position;
     }
 }
