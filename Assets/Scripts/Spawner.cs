@@ -1,18 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
     public GameObject enemy;
     public GameObject ball;
-    public Text score;
 
     private readonly float _waitTimeMin = 7.5f;
     private readonly float _waitTimeMax = 3.5f;
     
     private Transform _transform;
-    private int _answerInt;
+    private int _score;
     
     private void Start()
     {
@@ -23,8 +22,7 @@ public class Spawner : MonoBehaviour
     
     private void Update()
     {
-        // _answerInt = int.Parse(score.text.ToString());
-        // Debug.Log(score.text);
+        _score = GameObject.Find("ball").GetComponent<Ball>().score;
     }
 
     private void Repeat()

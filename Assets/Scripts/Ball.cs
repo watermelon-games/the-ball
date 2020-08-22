@@ -7,10 +7,11 @@ public class Ball : MonoBehaviour
     public GameObject pointTop;
     public GameObject pointBottom;
     public ParticleSystem dead;
-    public Text score;
+    public Text scoreText;
+    
+    public int score = 0;
 
     private bool _check = true;
-    private int _score = 0;
     private bool _isLastTop = false;
     private bool _isLastBottom = false;
     
@@ -38,19 +39,24 @@ public class Ball : MonoBehaviour
     {
         _check = !_check;
     }
-    
+
+    private void Restart()
+    {
+        
+    }
+
     private void ChangePointPosition(string pointName)
     {
         if (pointName == "point_top")
         {
             var tempTransform = pointTop.transform.position;
-            tempTransform.x = Random.Range(-2.4f, 0.8f);
+            tempTransform.x = Random.Range(-2.3f, 0.7f);
             pointTop.transform.position = tempTransform;
         }
         else
         {
             var tempTransform = pointBottom.transform.position;
-            tempTransform.x = Random.Range(0.8f, -2.4f);
+            tempTransform.x = Random.Range(0.7f, -2.3f);
             pointBottom.transform.position = tempTransform;
         }
     }
@@ -58,6 +64,7 @@ public class Ball : MonoBehaviour
     private void Crash()
     {
         target.SetActive(false);
+        dead.transform.position = target.transform.position;
         dead.Clear();
         dead.Play();
     }
@@ -93,8 +100,8 @@ public class Ball : MonoBehaviour
 
     private void Increment()
     {
-        _score++;
-        score.text = _score.ToString() + " Pts";
+        score++;
+        scoreText.text = score.ToString() + " Pts";
     }
     
     private void OnCollisionEnter2D(Collision2D collision)

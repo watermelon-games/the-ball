@@ -22,15 +22,9 @@ public class Enemy : MonoBehaviour
 	        
 	        Debug.Log(randomSpawn);
 	        
-			if (ball.activeSelf) {
-				if (randomSpawn == 1)
-				{
-					Respawn(spawnTop);
-				}
-				else
-				{
-					Respawn(spawnBottom);
-				}
+			if (ball.activeSelf)
+			{
+				Respawn(randomSpawn == 1 ? spawnTop : spawnBottom);
 			} else {
 				Destroy(target);
 			}
