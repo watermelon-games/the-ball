@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
 			if (ball.activeSelf) {
-            	Respown(spawnBottom);
+            	Respown(spawnTop);
 			} else {
 				Destroy(target);
 			}
@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour
 
 	void Respown(Transform spawn)
     {
+		Debug.Log(spawn.position);
+
         transform.position = new Vector3(1, spawn.position.x, spawn.position.y) * Time.deltaTime * 1;
     }
 }

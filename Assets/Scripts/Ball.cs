@@ -12,6 +12,8 @@ public class Ball : MonoBehaviour
 
     bool check = true;
     int score = 0;
+    bool lastTop = false;
+    bool lastBottom = false;
 
     public ParticleSystem Dead;
 
@@ -26,7 +28,7 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.tag == "Point")
         {
             Change();
-            Increment();
+            SetLastPoint(collision.gameObject.name);
         }
 
         if (collision.gameObject.tag == "Enemy")
@@ -61,11 +63,40 @@ public class Ball : MonoBehaviour
         PointTop.SetActive(true);
     }
 
+    void SetLastPoint(string pointName)
+    {
+        NeedIncrement(pointName);
+        
+        if (pointName == "point_top")
+        {
+            lastTop = true;
+            lastBottom = false;
+        }
+        else
+        {
+            lastTop = false;
+            lastBottom = true;
+        }
+    }
+
     void Crash()
     {
         Target.SetActive(false);
         Dead.Clear();
         Dead.Play();
+    }
+
+    void NeedIncrement(string pointName)
+    {
+        if (pointName == "point_top" && !lastTop)
+        {
+            Increment();
+        }
+
+        if (pointName == "point_bottom" && !lastBottom)
+        {
+            Increment();
+        }
     }
 
     void Increment()
