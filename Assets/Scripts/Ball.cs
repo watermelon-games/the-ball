@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class Ball : MonoBehaviour
 {
+    public GameObject Target;
     public GameObject PointTop;
     public GameObject PointBottom;
     public Text Score;
 
     bool check = true;
-    int score = 1;
+    int score = 0;
 
     public ParticleSystem Dead;
 
@@ -20,6 +21,20 @@ public class Ball : MonoBehaviour
         Dead.Stop();
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Point")
+        {
+            Change();
+            Increment();
+        }
+
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Crash();
+        }
+    }
+    
     void Update()
     {
         if (check)
@@ -30,7 +45,8 @@ public class Ball : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, PointBottom.transform.position, 2f * Time.deltaTime);
         }
-
+        
+        transform.rotation *= Quaternion.Euler(0f, 0f, 0.8f);
     }
 
     void Change()
@@ -40,6 +56,7 @@ public class Ball : MonoBehaviour
 
     void Crash()
     {
+        Target.SetActive(false);
         Dead.Clear();
         Dead.Play();
     }
@@ -47,6 +64,6 @@ public class Ball : MonoBehaviour
     void Increment()
     {
         score++;
-        Score.text = score.ToString() + "Pts";
+        Score.text = score.ToString() + " Pts";
     }
 }
