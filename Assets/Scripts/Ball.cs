@@ -45,7 +45,7 @@ public class Ball : MonoBehaviour
         _check = !_check;
     }
 
-    public void Restart()
+    private void Restart()
     {
         var clones = GameObject.FindGameObjectsWithTag("Clone");
 
@@ -66,13 +66,13 @@ public class Ball : MonoBehaviour
         if (pointName == "point_top")
         {
             var tempTransform = pointTop.transform.position;
-            tempTransform.x = Random.Range(-2.3f, 0.7f);
+            tempTransform.x = Random.Range(-1.9f, 0.7f);
             pointTop.transform.position = tempTransform;
         }
         else
         {
             var tempTransform = pointBottom.transform.position;
-            tempTransform.x = Random.Range(0.7f, -2.3f);
+            tempTransform.x = Random.Range(0.7f, -1.9f);
             pointBottom.transform.position = tempTransform;
         }
     }
@@ -132,7 +132,7 @@ public class Ball : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Clone"))
         {
-            // Crash();
+            Crash();
         }
     }
 }
