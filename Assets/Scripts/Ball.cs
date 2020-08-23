@@ -83,6 +83,9 @@ public class Ball : MonoBehaviour
         dead.transform.position = target.transform.position;
         dead.Clear();
         dead.Play();
+        
+        PlayerPrefs.SetInt("Score", score);
+        
         SceneManager.LoadScene("Menu");
     }
 
