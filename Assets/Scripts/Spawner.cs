@@ -29,24 +29,8 @@ public class Spawner : MonoBehaviour
         {
             _score = GameObject.Find("ball").GetComponent<Ball>().score;
         }
-
-        if (_score > 5)
-        {
-            _waitTimeMin = 4f;
-            _waitTimeMax = 1f;
-        }
-
-        if (_score > 10)
-        {
-            _waitTimeMin = 6f;
-            _waitTimeMax = 2f;
-        }
-
-        if (_score > 20)
-        {
-            _waitTimeMin = 10f;
-            _waitTimeMax = 8f;
-        }
+        
+        CalculateWaitTimeByPoints(_score);
     }
 
     private void Repeat()
@@ -67,9 +51,30 @@ public class Spawner : MonoBehaviour
         Repeat();
     }
 
+    private void CalculateWaitTimeByPoints(int score)
+    {
+        if (score > 5)
+        {
+            _waitTimeMin = 6f;
+            _waitTimeMax = 2f;
+        }
+
+        if (score > 10)
+        {
+            _waitTimeMin = 4f;
+            _waitTimeMax = 2f;
+        }
+
+        if (score > 20)
+        {
+            _waitTimeMin = 10f;
+            _waitTimeMax = 2f;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Clone") || collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(this);
         }

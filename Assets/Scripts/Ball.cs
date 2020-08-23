@@ -21,6 +21,7 @@ public class Ball : MonoBehaviour
     {
         dead.Clear();
         dead.Stop();
+        Restart();
     }
 
     private void Update()
