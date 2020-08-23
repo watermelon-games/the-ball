@@ -8,41 +8,51 @@ public class Ball : MonoBehaviour
     public GameObject pointBottom;
     public ParticleSystem dead;
     public Text scoreText;
-    
+
     public int score = 0;
 
     private bool _check = true;
     private bool _isLastTop = false;
     private bool _isLastBottom = false;
-    
+
     private void Start()
     {
         dead.Clear();
         dead.Stop();
     }
-    
+
     private void Update()
     {
         if (_check)
         {
-            transform.position = Vector3.MoveTowards(transform.position, pointTop.transform.position, 2f * Time.deltaTime);
+            transform.position =
+                Vector3.MoveTowards(transform.position, pointTop.transform.position, 2f * Time.deltaTime);
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, pointBottom.transform.position, 2f * Time.deltaTime);
+            transform.position =
+                Vector3.MoveTowards(transform.position, pointBottom.transform.position, 2f * Time.deltaTime);
         }
-        
+
         transform.rotation *= Quaternion.Euler(0f, 0f, 0.8f);
     }
 
-    private void Change()
+    public void Change()
     {
         _check = !_check;
     }
 
-    private void Restart()
+    public void Restart()
     {
-        
+        var clones = GameObject.FindGameObjectsWithTag("Enemy(Clone)");
+
+        foreach (var clone in clones)
+        {
+            Destroy(clone);
+        }
+
+        scoreText.text = "0 Pts";
+        score = 0;
     }
 
     private void ChangePointPosition(string pointName)
@@ -60,7 +70,7 @@ public class Ball : MonoBehaviour
             pointBottom.transform.position = tempTransform;
         }
     }
-    
+
     private void Crash()
     {
         target.SetActive(false);
@@ -72,7 +82,7 @@ public class Ball : MonoBehaviour
     private void SetLastPoint(string pointName)
     {
         NeedIncrement(pointName);
-        
+
         if (pointName == "point_top")
         {
             _isLastTop = true;
@@ -103,7 +113,7 @@ public class Ball : MonoBehaviour
         score++;
         scoreText.text = score.ToString() + " Pts";
     }
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Point"))

@@ -22,7 +22,10 @@ public class Spawner : MonoBehaviour
     
     private void Update()
     {
-        _score = GameObject.Find("ball").GetComponent<Ball>().score;
+        if (GameObject.Find("ball"))
+        {
+            _score = GameObject.Find("ball").GetComponent<Ball>().score;
+        }
     }
 
     private void Repeat()
