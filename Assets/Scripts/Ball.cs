@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Ball : MonoBehaviour
 {
     public GameObject target;
+    public GameObject enemy;
     public GameObject pointTop;
     public GameObject pointBottom;
     public ParticleSystem dead;
@@ -44,7 +46,7 @@ public class Ball : MonoBehaviour
 
     public void Restart()
     {
-        var clones = GameObject.FindGameObjectsWithTag("Enemy(Clone)");
+        var clones = GameObject.FindGameObjectsWithTag("Clone");
 
         foreach (var clone in clones)
         {
@@ -53,6 +55,9 @@ public class Ball : MonoBehaviour
 
         scoreText.text = "0 Pts";
         score = 0;
+
+        target.transform.position = new Vector3(0.5f, -0.1f, 0.0f);
+        enemy.transform.position = new Vector3(-1.8f, -0.1f, 0.0f);
     }
 
     private void ChangePointPosition(string pointName)
@@ -77,6 +82,7 @@ public class Ball : MonoBehaviour
         dead.transform.position = target.transform.position;
         dead.Clear();
         dead.Play();
+        SceneManager.LoadScene("Menu");
     }
 
     private void SetLastPoint(string pointName)
@@ -123,9 +129,9 @@ public class Ball : MonoBehaviour
             ChangePointPosition(collision.gameObject.name);
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Clone"))
         {
-            Crash();
+            // Crash();
         }
     }
 }

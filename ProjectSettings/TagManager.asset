@@ -8,6 +8,7 @@ TagManager:
   - Point
   - Wall
   - Spawn
+  - Clone
   layers:
   - Default
   - TransparentFX

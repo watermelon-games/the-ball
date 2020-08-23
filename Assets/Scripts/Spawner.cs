@@ -7,40 +7,71 @@ public class Spawner : MonoBehaviour
     public GameObject enemy;
     public GameObject ball;
 
-    private readonly float _waitTimeMin = 7.5f;
-    private readonly float _waitTimeMax = 3.5f;
-    
+    private float _waitTimeMin;
+    private float _waitTimeMax;
+
     private Transform _transform;
     private int _score;
-    
+
     private void Start()
     {
         _transform = GetComponent<Transform>();
-        
+
+        _waitTimeMin = 8f;
+        _waitTimeMax = 2f;
+
         StartCoroutine(SpawnCountDown());
     }
-    
+
     private void Update()
     {
         if (GameObject.Find("ball"))
         {
             _score = GameObject.Find("ball").GetComponent<Ball>().score;
         }
+
+        if (_score > 5)
+        {
+            _waitTimeMin = 4f;
+            _waitTimeMax = 1f;
+        }
+
+        if (_score > 10)
+        {
+            _waitTimeMin = 6f;
+            _waitTimeMax = 2f;
+        }
+
+        if (_score > 20)
+        {
+            _waitTimeMin = 10f;
+            _waitTimeMax = 8f;
+        }
     }
 
     private void Repeat()
     {
-        if (ball.activeSelf) {
+        if (ball.activeSelf)
+        {
             StartCoroutine(SpawnCountDown());
         }
     }
 
     private IEnumerator SpawnCountDown()
     {
-        var waitTime =  Random.Range(_waitTimeMin, _waitTimeMax);
-        
+        var waitTime = Random.Range(_waitTimeMin, _waitTimeMax);
+
         yield return new WaitForSeconds(waitTime);
-        Instantiate(enemy, transform.position, Quaternion.identity);
+        var duplicate = Instantiate(enemy, transform.position, Quaternion.identity);
+        duplicate.tag = "Clone";
         Repeat();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Clone") || collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(this);
+        }
     }
 }

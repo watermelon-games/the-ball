@@ -18,11 +18,9 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
-	        var randomSpawn = Random.Range(1, 2);
+	        var randomSpawn = Random.Range(0, 2);
 	        
-	        Debug.Log(randomSpawn);
-	        
-			if (ball.activeSelf)
+			if (ball.activeSelf && target.CompareTag("Enemy"))
 			{
 				Respawn(randomSpawn == 1 ? spawnTop : spawnBottom);
 			} else {
