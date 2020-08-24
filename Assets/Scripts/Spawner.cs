@@ -10,13 +10,10 @@ public class Spawner : MonoBehaviour
     private float _waitTimeMin;
     private float _waitTimeMax;
 
-    private Transform _transform;
     private int _score;
 
     private void Start()
     {
-        _transform = GetComponent<Transform>();
-
         _waitTimeMin = 8f;
         _waitTimeMax = 2f;
 
